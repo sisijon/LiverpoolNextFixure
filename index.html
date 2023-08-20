@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="moment.github.io_luxon_global_luxon.min.js"></script>
+    <style>
+        span {
+            display: block;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        #summary {
+            font-size: 2em;
+        }
+        #date {
+            font-size: 1.4em;
+        }
+    </style>
+  </head>
+  <body>
+    <span id="summary"></span>
+    <span id="date"></span>
+
+
+	<script src="index.js"></script>
+    
+    <script>
+        var DateTime = luxon.DateTime;
+        fetch('./fixture.json')
+            .then((response) => response.json())
+            .then((json) => {
+                const sorted = json.sort((a, b) => parseInt(a.startDate) - parseInt(b.startDate));
+                //console.log(json);
+                for (let index = 0; index < sorted.length; index++) {
+                    const entry = sorted[index];
+
+                    const year = entry.startDate.slice(0,4);
+                    const month = entry.startDate.slice(4,6);
+                    const day = entry.startDate.slice(6,8);
+
+                    const hour = entry.startDate.slice(9,11);
+                    const minute = entry.startDate.slice(11,13);
+
+                    let startDate = DateTime.fromISO(year+'-'+month+'-'+day + 'T' + hour + ':' + minute, { zone: "utc" }) // Date.parse(year+'-'+month+'-'+day);
+                    // startDate = startDate.setZone("utc", { keepLocalTime: true });
+                    startDate = startDate.setZone("Europe/Stockholm");
+                    const now = DateTime.now();
+                    if(now < startDate) {
+
+                        console.log(startDate.toString())
+                        console.log(entry)
+                        document.getElementById('summary').innerText = entry.summary;
+                        document.getElementById('date').innerText = year+'-'+month+'-'+day + ' ' + hour + ':' + minute;
+                        return;
+                    }
+
+                }
+
+            });
+    </script>
+  </body>
+</html>
