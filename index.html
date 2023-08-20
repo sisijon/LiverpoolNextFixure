@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Next Liverpool Fixture</title>
     <script src="moment.github.io_luxon_global_luxon.min.js"></script>
     <style>
         span {
@@ -24,9 +23,6 @@
   <body>
     <span id="summary"></span>
     <span id="date"></span>
-
-
-	<script src="index.js"></script>
     
     <script>
         var DateTime = luxon.DateTime;
@@ -59,13 +55,13 @@
                         console.log(entry)
                         if(hasJson) {
                             const newJson = {
-                                summary: entry.summary,
+                                summary: entry.summary.slice(1),
                                 date: year+'-'+month+'-'+day + ' ' + hour + ':' + minute
                             }
                             document.head
-    document.body.innerText = JSON.stringify(newJson);
+                            document.body.innerText = JSON.stringify(newJson);
                         } else {
-                            document.getElementById('summary').innerText = entry.summary;
+                            document.getElementById('summary').innerText = entry.summary.slice(1);
                             document.getElementById('date').innerText = year+'-'+month+'-'+day + ' ' + hour + ':' + minute;
                         }
                         return;
