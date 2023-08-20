@@ -62,7 +62,7 @@
                             document.body.innerText = JSON.stringify(newJson);
                         } else {
                             document.getElementById('summary').innerText = entry.summary.slice(1);
-                            document.getElementById('date').innerText = year+'-'+month+'-'+day + ' ' + hour + ':' + minute;
+                            document.getElementById('date').innerText = startDate.toFormat('yyyy-MM-dd HH:mm') // year+'-'+month+'-'+day + ' ' + hour + ':' + minute;
                         }
                         return;
                     }
